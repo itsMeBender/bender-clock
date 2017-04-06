@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`bender-clock`
+Display an analog clock.
+
+@demo demo/index.html 
+-->
+
+<dom-module id="bender-clock">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'bender-clock',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'bender-clock',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
