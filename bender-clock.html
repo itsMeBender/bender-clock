@@ -4,6 +4,8 @@
 `bender-clock`
 Display an analog clock.
 
+<bender-clock hhmm="21:45"></bender-clock>
+
 @demo demo/index.html 
 -->
 
@@ -13,19 +15,107 @@ Display an analog clock.
       :host {
         display: block;
       }
+      .clock {
+        width: 10em;
+        height: 10em;
+      }
+      .clock--frame {
+        border: solid 4px #FFFFFF;
+        border-radius: 5em;   /* Half of the parent size */
+        width: inherit;
+        height: inherit;
+        box-sizing: border-box;
+        background-color: #000000;
+        position: relative;        
+      }
+      .hour--frame,
+      .minute--frame,
+      .second--frame {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .hour--frame {
+        animation: rotate 43200s infinite linear;
+      }
+      .minute--frame {
+        animation: rotate 3600s infinite linear;
+      }
+      .second--frame {
+        animation: rotate 60s infinite  steps(60);
+      }
+
+      .hour {
+        position: absolute;
+        background-color: #EEEEEE;
+        width: 0.4em;
+        height: 2.8em;
+        transform-origin: 50% 50%;
+        bottom: 4.3em;
+        right: 4.51em;
+      }
+      .minute {
+        position: absolute;
+        background-color: #EEEEEE;
+        width: 0.2em;
+        height: 4.4em;
+        transform-origin: 50% 50%;
+        bottom: 4.1em;
+        right: 4.62em;
+      }
+      .second {
+        position: absolute;
+        background-color: #EEEEEE;
+        width: 0.1em;
+        height: 5.4em;
+        transform-origin: 50% 50%;
+        bottom: 3.5em;
+        right: 4.65em;
+      }
+      @keyframes rotate {
+        100% {
+          transform: rotateZ(360deg);
+        }
+      }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    <div class="clock">
+      <div class="clock--frame">
+        <div class="hour--frame">
+          <div class="hour"></div>
+        </div>
+        <div class="minute--frame">
+          <div class="minute"></div>
+        </div>
+        <div class="second--frame">
+          <div class="second"></div>
+        </div>
+        <div class="digits">
+        </div>
+      </div>
+    </div>
   </template>
 
   <script>
     Polymer({
 
+      changeDimensions: function (dimension) {
+        console.log("TODO: dimension", dimension);
+      },
+
+      changeTime: function (time) {
+        console.log("TODO: time", time);
+      },
+
       is: 'bender-clock',
 
       properties: {
-        prop1: {
+        hhmm: {
           type: String,
-          value: 'bender-clock',
+          value: '',
+          observer: "changeTime"
         },
       },
 
