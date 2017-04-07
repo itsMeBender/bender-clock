@@ -1,10 +1,25 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-`bender-clock`
-Display an analog clock.
+`bender-clock` displays an analog clock, using local time by default.
 
-<bender-clock hhmm="21:45"></bender-clock>
+Example:
+
+    <bender-clock></bender-clock>  
+    <bender-clock time="12:34"></bender-clock>  
+
+### Styling
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--bender-clock-background-color` | Clock display background | #000000
+`--bender-clock-border-color` | Color of the display border | #FFFFFF
+`--bender-clock-border-width` | Width of the display border | 4px
+`--bender-clock-color-hour` | Color of the hour hand | #EEEEEE
+`--bender-clock-color-minute` | Color of the minute hand | #EEEEEE
+`--bender-clock-color-second` | Color of the seconds hand | #EEEEEE
 
 @demo demo/index.html 
 -->
@@ -21,11 +36,13 @@ Display an analog clock.
       }
       .clock--frame {
         border: solid 4px #FFFFFF;
+        border-width: var(--bender-clock-border-width, 4px);
+        border-color: var(--bender-clock-border-color, #FFFFFF);
         border-radius: 5em;   /* Half of the parent size */
         width: inherit;
         height: inherit;
         box-sizing: border-box;
-        background-color: #000000;
+        background-color: var(--bender-clock-background-color, #000000);
         position: relative;        
       }
       .hour--frame,
@@ -50,7 +67,7 @@ Display an analog clock.
 
       .hour {
         position: absolute;
-        background-color: #EEEEEE;
+        background-color: var(--bender-clock-color-hour, #EEEEEE);
         width: 0.4em;
         height: 2.8em;
         transform-origin: 50% 50%;
@@ -59,7 +76,7 @@ Display an analog clock.
       }
       .minute {
         position: absolute;
-        background-color: #EEEEEE;
+        background-color: var(--bender-clock-color-minute, #EEEEEE);
         width: 0.2em;
         height: 4.4em;
         transform-origin: 50% 50%;
@@ -68,7 +85,7 @@ Display an analog clock.
       }
       .second {
         position: absolute;
-        background-color: #EEEEEE;
+        background-color: var(--bender-clock-color-second, #EEEEEE);
         width: 0.1em;
         height: 5.4em;
         transform-origin: 50% 50%;
@@ -105,7 +122,7 @@ Display an analog clock.
         console.log("TODO: dimension", dimension);
       },
 
-      // Change time with format HH, HH:MM, HH:MM:SS
+      // Change displayed time with format H, H:M, H:M:S as in '1:23:45'
       changeTime: function (time) {
         var clock = new Date();
         var hours;

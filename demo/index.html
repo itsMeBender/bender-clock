@@ -13,6 +13,15 @@
     <link rel="import" href="../bender-clock.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
+      .setColors {
+        --bender-clock-border-color: #449988;
+        --bender-clock-border-width: 2px;
+        --bender-clock-background-color: #59BBC9;
+        --bender-clock-color-hour: #444444;
+        --bender-clock-color-minute: #EEFF66;
+        --bender-clock-color-second: #FF3311;
+
+      }
     </style>
   </head>
   <body>
@@ -36,7 +45,7 @@
       <h3>Given time at 1 hour</h3>
       <demo-snippet>
         <template>
-          <bender-clock time="1"></bender-clock>
+          <bender-clock class="setColors" time="1"></bender-clock>
         </template>
       </demo-snippet>
     </div>
