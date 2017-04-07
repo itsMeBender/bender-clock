@@ -105,14 +105,122 @@ Display an analog clock.
         console.log("TODO: dimension", dimension);
       },
 
+      // Change time with format HH, HH:MM, HH:MM:SS
       changeTime: function (time) {
-        console.log("TODO: time", time);
+        var clock = new Date();
+        var hours;
+        var minutes;
+        var seconds;
+        var that = this;
+        var timeParts;
+
+        if (time) {
+
+          // Validate input
+          if (typeof time === 'string') {
+
+            // Defaults
+            hours = 0;
+            minutes = 0;
+            seconds = 0;                  
+
+            timeParts = time.split(':');
+            switch (timeParts.length) {
+              case 3:
+                seconds = validSeconds(timeParts[2]);
+              case 2:
+                minutes = validMinutes(timeParts[1]) * 60;    // In seconds
+              case 1:
+                hours   = validHours(timeParts[0]) * 3600;    // In seconds
+                break;
+              default:
+                throw "Attribute `time` unexpected format";
+            }
+          } else {
+            throw "Attribute `time` unexpected format";
+          }
+
+        } else {
+          // Use current local time
+          hours = validHours(clock.getHours()) * 3600;    // In seconds
+          minutes = clock.getMinutes() * 60;  // In seconds
+          seconds = clock.getSeconds();
+
+        }
+
+        // Degrees as time / scale ratio to 360 circle
+        setRotationForElement (Math.round((hours + minutes + seconds) / 43200 * 360), '.hour--frame');
+        setRotationForElement (Math.round((minutes + seconds) / 3600 * 360), '.minute--frame');
+        setRotationForElement (Math.round(seconds / 60 * 360), '.second--frame');
+
+        /**
+         * Set the rotation ANGLE of the container frame, identied by a unique CLASSNAME
+         * @param {number} angle The calculated ANGLE of the ELEMENT 0..360
+         * @param {string} className The unique identifier of the ELEMENT to be rotated
+         */
+        function setRotationForElement (angle, className) {
+          var element = that.querySelector(className);
+          element.style.webkitTransform = 'rotateZ('+ angle +'deg)';
+          element.style.transform = 'rotateZ('+ angle +'deg)';
+        }
+
+        /**
+         * Validate if value is an accaptable hour range 0..23
+         * @param {string} hours The time in HOURS, 0..23
+         * @return {number} Of hours 0..12, 12-hour analog clock
+         */
+        function validHours (hours) {
+          if (isNaN(hours)) {
+            throw "Attribute `time` unexpected format";                
+          } else {
+            hours = parseInt(hours, 10);
+            if (hours < 0 || hours > 23) {
+              throw "Attribute `time` unexpected format";                                
+            }
+          }
+          // Convert to 12 hour clock.
+          return hours > 12 ? hours - 12 : hours;
+        }
+
+        /**
+         * Validate if value is an accaptable minute range 0..59
+         * @param {string} minutes The time MINUTES, 0..59
+         * @return {number} minutes
+         */
+        function validMinutes (minutes) {
+          if (isNaN(minutes)) {
+            throw "Attribute `time` unexpected format";                
+          } else {
+            minutes = parseInt(minutes, 10);
+            if (minutes < 0 || minutes > 59) {
+              throw "Attribute `time` unexpected format";                                
+            }
+          }
+          return minutes;
+        }
+
+        /**
+         * Validate if value is an accaptable minute range 0..59
+         * @param {string} seconds The time SECONDS, 0..59
+         * @return {number} seconds
+         */
+        function validSeconds (seconds) {
+          if (isNaN(seconds)) {
+            throw "Attribute `time` unexpected format";                
+          } else {
+            seconds = parseInt(seconds, 10);
+            if (seconds < 0 || seconds > 59) {
+              throw "Attribute `time` unexpected format";                                
+            }
+          }
+          return seconds;
+        }
       },
 
       is: 'bender-clock',
 
       properties: {
-        hhmm: {
+        time: {
           type: String,
           value: '',
           observer: "changeTime"
