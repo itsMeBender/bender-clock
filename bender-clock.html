@@ -14,12 +14,13 @@ The following custom properties and mixins are also available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--bender-clock-background-color` | Clock display background | #000000
-`--bender-clock-border-color` | Color of the display border | #FFFFFF
-`--bender-clock-border-width` | Width of the display border | 4px
-`--bender-clock-color-hour` | Color of the hour hand | #EEEEEE
-`--bender-clock-color-minute` | Color of the minute hand | #EEEEEE
-`--bender-clock-color-second` | Color of the seconds hand | #EEEEEE
+`--bender-clock-background-color` | Clock display background               | #000000
+`--bender-clock-border-color`     | Color of the display border            | #FFFFFF
+`--bender-clock-border-width`     | Width of the display border            | 4px
+`--bender-clock-color-hour`       | Color of the hour hand                 | #EEEEEE
+`--bender-clock-color-minute`     | Color of the minute hand               | #EEEEEE
+`--bender-clock-color-second`     | Color of the seconds hand              | #EEEEEE
+`--bender-clock-border-radius`    | Radius of the border. Round to square. | 5em - round
 
 @demo demo/index.html 
 -->
@@ -33,18 +34,19 @@ Custom property | Description | Default
       .clock {
         width: 10em;
         height: 10em;
+        position: relative;
       }
       .clock--frame {
-        border: solid 4px #FFFFFF;
-        border-width: var(--bender-clock-border-width, 4px);
-        border-color: var(--bender-clock-border-color, #FFFFFF);
-        border-radius: 5em;   /* Half of the parent size */
-        width: inherit;
-        height: inherit;
-        box-sizing: border-box;
+        border: solid var(--bender-clock-border-width, 4px) var(--bender-clock-border-color, #FFFFFF);
+        border-radius: var(--bender-clock-border-radius, 5em);       /* Half of the parent size */
+        width: inherit;           /* use parent .clock */
+        height: inherit;          /* use parent .clock */
+        box-sizing: border-box;   /* Includes the border */
         background-color: var(--bender-clock-background-color, #000000);
-        position: relative;        
       }
+
+      .clock--frame,
+      .center--frame,
       .hour--frame,
       .minute--frame,
       .second--frame {
@@ -54,7 +56,6 @@ Custom property | Description | Default
         bottom: 0;
         left: 0;
       }
-
       .hour--frame {
         animation: rotate 43200s infinite linear;
       }
@@ -62,54 +63,89 @@ Custom property | Description | Default
         animation: rotate 3600s infinite linear;
       }
       .second--frame {
-        animation: rotate 60s infinite  steps(60);
+        animation: rotate 60s infinite steps(60);
       }
 
+      .center {
+        position: absolute;
+        background-color: var(--bender-clock-color-hour, #EEEEEE);     
+        width: 0.6em;
+        height: 0.6em;
+        transform-origin: 50% 50%;  /* The middle of the circle */
+        top: 4.7em;
+        left: 4.7em;
+        border-radius: 0.3em;   /* Half of the parent size */
+        box-sizing: border-box;
+      }
       .hour {
         position: absolute;
         background-color: var(--bender-clock-color-hour, #EEEEEE);
         width: 0.4em;
-        height: 2.8em;
-        transform-origin: 50% 50%;
-        bottom: 4.3em;
-        right: 4.51em;
+        height: 2.5em;
+        transform-origin: 0 50%;
+        bottom: 5em;
+        right: 4.8em;
       }
       .minute {
         position: absolute;
         background-color: var(--bender-clock-color-minute, #EEEEEE);
         width: 0.2em;
-        height: 4.4em;
-        transform-origin: 50% 50%;
-        bottom: 4.1em;
-        right: 4.62em;
+        height: 4.0em;
+        transform-origin: 0 50%;
+        bottom: 5em;
+        right: 4.9em;
       }
       .second {
         position: absolute;
         background-color: var(--bender-clock-color-second, #EEEEEE);
-        width: 0.1em;
-        height: 5.4em;
-        transform-origin: 50% 50%;
-        bottom: 3.5em;
-        right: 4.65em;
+        width: 0.06em;
+        height: 4.5em;
+        transform-origin: 0% 50%;
+        bottom: 4.3em;
+        right: 4.96em;
       }
       @keyframes rotate {
         100% {
           transform: rotateZ(360deg);
         }
       }
+
+      .digits {
+        color: red;
+      }
+      .digit {
+        position: absolute;
+        padding: 0.05em;
+        transform-origin: 50% 50%;
+      }
+      .digit--frame {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;        
+      }
+      .digit--12 {
+        top: 0;
+        left: 50%;
+      }
     </style>
     <div class="clock">
-      <div class="clock--frame">
-        <div class="hour--frame">
-          <div class="hour"></div>
-        </div>
-        <div class="minute--frame">
-          <div class="minute"></div>
-        </div>
-        <div class="second--frame">
-          <div class="second"></div>
-        </div>
-        <div class="digits">
+      <div class="clock--frame"></div>
+      
+      <div class="hour--frame">
+        <div class="hour"></div>
+      </div>
+      <div class="minute--frame">
+        <div class="minute"></div>
+      </div>
+      <div class="second--frame">
+        <div class="second"></div>
+      </div>
+      <div class="center"></div>
+      <div class="digits">
+        <div class="digit--frame">
+          <div class="digit digit--12">12</div>
         </div>
       </div>
     </div>
