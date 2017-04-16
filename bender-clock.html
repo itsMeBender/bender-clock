@@ -48,21 +48,24 @@ Custom property | Description | Default
       .clock--frame,
       .center--frame,
       .hour--frame,
+      .hour--full-rotation,
       .minute--frame,
-      .second--frame {
+      .minute--full-rotation,
+      .second--frame,
+      .second--full-rotation {
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
       }
-      .hour--frame {
+      .hour--full-rotation {
         animation: rotate 43200s infinite linear;
       }
-      .minute--frame {
+      .minute--full-rotation {
         animation: rotate 3600s infinite linear;
       }
-      .second--frame {
+      .second--full-rotation {
         animation: rotate 60s infinite steps(60);
       }
 
@@ -80,17 +83,17 @@ Custom property | Description | Default
       .hour {
         position: absolute;
         background-color: var(--bender-clock-color-hour, #EEEEEE);
-        width: 0.4em;
-        height: 2.5em;
+        width: 0.3em;
+        height: 2.2em;
         transform-origin: 0 50%;
         bottom: 5em;
-        right: 4.8em;
+        right: 4.85em;
       }
       .minute {
         position: absolute;
         background-color: var(--bender-clock-color-minute, #EEEEEE);
         width: 0.2em;
-        height: 4.0em;
+        height: 3.4em;
         transform-origin: 0 50%;
         bottom: 5em;
         right: 4.9em;
@@ -105,8 +108,8 @@ Custom property | Description | Default
         right: 4.96em;
       }
       @keyframes rotate {
-        100% {
-          transform: rotateZ(360deg);
+        0%   {transform: rotateZ(0deg)}
+        100% {transform: rotateZ(360deg);
         }
       }
 
@@ -134,17 +137,23 @@ Custom property | Description | Default
       <div class="clock--frame"></div>
       
       <div class="hour--frame">
-        <div class="hour"></div>
+        <div class="hour--full-rotation">
+          <div class="hour"></div>
+        </div>
       </div>
       <div class="minute--frame">
-        <div class="minute"></div>
+        <div class="minute--full-rotation">
+          <div class="minute"></div>
+        </div>
       </div>
       <div class="second--frame">
-        <div class="second"></div>
+        <div class="second--full-rotation">
+          <div class="second"></div>
+        </div>
       </div>
       <div class="center"></div>
       <div class="digits">
-        <div class="digit--frame">
+        <div class="digit--full-rotation">
           <div class="digit digit--12">12</div>
         </div>
       </div>
@@ -218,7 +227,7 @@ Custom property | Description | Default
         }
 
         /**
-         * Validate if value is an accaptable hour range 0..23
+         * Validate if value is an accaptable hour range 0..23 and returns it.
          * @param {string} hours The time in HOURS, 0..23
          * @return {number} Of hours 0..12, 12-hour analog clock
          */
@@ -236,7 +245,7 @@ Custom property | Description | Default
         }
 
         /**
-         * Validate if value is an accaptable minute range 0..59
+         * Validate if value is an accaptable minute range 0..59 and returns it.
          * @param {string} minutes The time MINUTES, 0..59
          * @return {number} minutes
          */
@@ -253,7 +262,7 @@ Custom property | Description | Default
         }
 
         /**
-         * Validate if value is an accaptable minute range 0..59
+         * Validate if value is an accaptable minute range 0..59 and returns it.
          * @param {string} seconds The time SECONDS, 0..59
          * @return {number} seconds
          */
