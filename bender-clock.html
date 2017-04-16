@@ -221,7 +221,7 @@ Custom property | Description | Default
          * @param {string} className The unique identifier of the ELEMENT to be rotated
          */
         function setRotationForElement (angle, className) {
-          var element = that.querySelector(className);
+          var element = that.$$(className);
           element.style.webkitTransform = 'rotateZ('+ angle +'deg)';
           element.style.transform = 'rotateZ('+ angle +'deg)';
         }
