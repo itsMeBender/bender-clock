@@ -28,9 +28,18 @@
 
         setup(function () {
           element = fixture("basic");
+
+          // Frame rotation is the starting rotation of given time.
+          // These elements are under control of the JavaScript to handle the initial start time rotation.
           hour = element.$$('.hour--frame');
           minute = element.$$('.minute--frame');
           second = element.$$('.second--frame');
+
+          // This is the full 360deg, hour, minute and second (hand) rotation.
+          // Animated by CSS "animation: rotate 43200s infinite linear".
+          hourRotation = element.$$('.hour--full-rotation');
+          minuteRotation = element.$$('.minute--full-rotation');
+          secondRotation = element.$$('.second--full-rotation');
         });
 
         // Element
@@ -45,9 +54,9 @@
           expect(second.nodeName).to.be.equal('DIV');
 
           // Hour, minute and second clock pointer, identified by className
-          expect(hour.firstElementChild.classList[0]).to.be.equal('hour');
-          expect(minute.firstElementChild.classList[0]).to.be.equal('minute');
-          expect(second.firstElementChild.classList[0]).to.be.equal('second');
+          expect(hourRotation.firstElementChild.classList[0]).to.be.equal('hour');
+          expect(minuteRotation.firstElementChild.classList[0]).to.be.equal('minute');
+          expect(secondRotation.firstElementChild.classList[0]).to.be.equal('second');
         });
 
 

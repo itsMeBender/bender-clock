@@ -134,11 +134,11 @@ Custom property | Description | Default
       }
     </style>
     <div class="clock">
-      <div class="clock--frame"></div>
+      <div class="clock--frame"><!-- Handles background, border --></div>
       
-      <div class="hour--frame">
-        <div class="hour--full-rotation">
-          <div class="hour"></div>
+      <div class="hour--frame"><!-- Handles, rotation at start time -->
+        <div class="hour--full-rotation"><!-- Handles, the actual time. 1 Hour rotation -->
+          <div class="hour"><!-- The HOUR hand rectangle --></div>
         </div>
       </div>
       <div class="minute--frame">
@@ -151,10 +151,10 @@ Custom property | Description | Default
           <div class="second"></div>
         </div>
       </div>
-      <div class="center"></div>
+      <div class="center"><!-- The center dot, of the hands --></div>
       <div class="digits">
         <div class="digit--full-rotation">
-          <div class="digit digit--12">12</div>
+          <!-- <div class="digit digit--12">12</div>  -->
         </div>
       </div>
     </div>
