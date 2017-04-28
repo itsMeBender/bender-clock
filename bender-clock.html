@@ -12,15 +12,15 @@ Example:
 
 The following custom properties and mixins are also available for styling:
 
-Custom property | Description | Default
-----------------|-------------|----------
-`--bender-clock-background-color` | Clock display background               | #000000
-`--bender-clock-border-color`     | Color of the display border            | #FFFFFF
-`--bender-clock-border-width`     | Width of the display border            | 4px
-`--bender-clock-color-hour`       | Color of the hour hand                 | #EEEEEE
-`--bender-clock-color-minute`     | Color of the minute hand               | #EEEEEE
-`--bender-clock-color-second`     | Color of the seconds hand              | #EEEEEE
-`--bender-clock-border-radius`    | Radius of the border. Round to square. | 5em - round
+Custom property                   | Description                  | Default
+----------------------------------|------------------------------|----------
+`--bender-clock-background-color` | Clock display background     | #000000
+`--bender-clock-border-color`     | Color of the border border   | #FFFFFF
+`--bender-clock-border-width`     | Width of the border border   | 4px
+`--bender-clock-color-hour`       | Color of the hour hand       | #EEEEEE
+`--bender-clock-color-minute`     | Color of the minute hand     | #EEEEEE
+`--bender-clock-color-second`     | Color of the seconds hand    | #EEEEEE
+`--bender-clock-border-radius`    | Radius of the border.        | 5em - round, 0em - square
 
 @demo demo/index.html 
 -->
@@ -109,8 +109,7 @@ Custom property | Description | Default
       }
       @keyframes rotate {
         0%   {transform: rotateZ(0deg)}
-        100% {transform: rotateZ(360deg);
-        }
+        100% {transform: rotateZ(360deg)};
       }
 
       .digits {
@@ -163,9 +162,11 @@ Custom property | Description | Default
   <script>
     Polymer({
 
+      /*
       changeDimensions: function (dimension) {
         console.log("TODO: dimension", dimension);
       },
+      */
 
       // Change displayed time with format H, H:M, H:M:S as in '1:23:45'
       changeTime: function (time) {
@@ -207,7 +208,6 @@ Custom property | Description | Default
           hours = validHours(clock.getHours()) * 3600;    // In seconds
           minutes = clock.getMinutes() * 60;  // In seconds
           seconds = clock.getSeconds();
-
         }
 
         // Degrees as time / scale ratio to 360 circle
@@ -287,6 +287,40 @@ Custom property | Description | Default
           value: '',
           observer: "changeTime"
         },
+      },
+
+      ready: function () {
+        // The Page Visibility API lets you know when a webpage is visible or in focus. 
+        // https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
+
+        // Set the name of the hidden property and the change event for visibility
+        var hidden, visibilityChange; 
+        if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support 
+          hidden = "hidden";
+          visibilityChange = "visibilitychange";
+        } else if (typeof document.msHidden !== "undefined") {
+          hidden = "msHidden";
+          visibilityChange = "msvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") {
+          hidden = "webkitHidden";
+          visibilityChange = "webkitvisibilitychange";
+        }
+
+        // If the page is hidden, the CSS animation doesn't reflect the correct time.
+        // if the page is shown, synchronize time
+        function handleVisibilityChange() {
+          if (!document[hidden]) {
+            // this.changeTime();
+          }
+        }
+
+        // Warn if the browser doesn't support addEventListener or the Page Visibility API
+        if (typeof document.addEventListener === "undefined" || typeof document[hidden] === "undefined") {
+          console.log("This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.");
+        } else {
+          // Handle page visibility change   
+          document.addEventListener(visibilityChange, handleVisibilityChange, false);
+        }
       },
 
     });
