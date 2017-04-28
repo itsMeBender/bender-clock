@@ -25,3 +25,9 @@ For me it's a nice project to sharpen my skills in; CSS3, Javascript, units test
 ## Why CSS
 
 The clock is animated using **CSS3 transform properties**. This means optimal browser performance. JavaScript is only used to set the start time, dimensions and Polymer Web Components.
+
+# Specifications
+
+* To show an analog clock, with hour, minute and second hands.
+* Animation handled by CSS transitions
+* Freedom by user to manipulate look-and-feel.
