@@ -1,6 +1,6 @@
 {
   "name": "bender-clock",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Display an analog clock.",
   "main": "bender-clock.html",
   "dependencies": {
