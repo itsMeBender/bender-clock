@@ -21,6 +21,17 @@
         --bender-clock-color-minute: #EEFF66;
         --bender-clock-color-second: #FF3311;
       }
+      .showMe {
+        border-radius: 5em;
+        background-image: url("itsmebender.png");
+        background-size: 100%;
+        background-repeat: no-repeat;       
+        width: 10em;
+      }
+      .showMe bender-clock {
+        --bender-clock-border-color: #444444;
+        --bender-clock-background-color: transparent;
+      }
     </style>
   </head>
   <body>
@@ -37,6 +48,16 @@
       <demo-snippet>
         <template>
           <bender-clock time="21:41:13"></bender-clock>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Show Me</h3>
+      <demo-snippet>
+        <template>
+          <div class="showMe">
+            <bender-clock></bender-clock>
+          </div>
         </template>
       </demo-snippet>
     </div>
