@@ -154,6 +154,12 @@
             element.changeTime('HH:MM');
           }, 'Attribute `time` unexpected format', 'Error thrown on `HH:MM`');
         });
+
+        test('B05 - Function changeTime(time:String), check on event fired', function() {
+          sinon.spy(element, 'fire');
+          element.changeTime('1:23');
+          expect(element.fire).to.have.been.calledWith('bender-clock-time-changed', {'timeset': '1:23'});
+        });
       });
     </script>
   </body>

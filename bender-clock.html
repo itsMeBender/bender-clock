@@ -176,43 +176,6 @@ Custom property                   | Description                  | Default
         var that = this;
         var timeParts;
 
-        if (time) {
-          // Validate input
-          if (typeof time === 'string') {
-            // Defaults
-            hours = 0;
-            minutes = 0;
-            seconds = 0;
-
-            timeParts = time.split(':');
-            switch (timeParts.length) {
-              case 3:
-                seconds = validSeconds(timeParts[2]);
-                // falls through
-              case 2:
-                minutes = validMinutes(timeParts[1]) * 60; // In seconds
-                // falls through
-              case 1:
-                hours = validHours(timeParts[0]) * 3600; // In seconds
-                break;
-              default:
-                throw new UserException('Attribute `time` unexpected format');
-            }
-          } else {
-            throw new UserException('Attribute `time` unexpected format');
-          }
-        } else {
-          // Use current local time
-          hours = validHours(clock.getHours()) * 3600; // In seconds
-          minutes = clock.getMinutes() * 60; // In seconds
-          seconds = clock.getSeconds();
-        }
-
-        // Degrees as time / scale ratio to 360 circle
-        setRotationForElement(Math.round((hours + minutes + seconds) / 43200 * 360), '.hour--frame');
-        setRotationForElement(Math.round((minutes + seconds) / 3600 * 360), '.minute--frame');
-        setRotationForElement(Math.round(seconds / 60 * 360), '.second--frame');
-
         /**
          * Set the rotation ANGLE of the container frame, identied by a unique CLASSNAME
          * @param {number} angle The calculated ANGLE of the ELEMENT 0..360
@@ -284,6 +247,47 @@ Custom property                   | Description                  | Default
           this.message = message;
           this.name = 'BenderClockUserException';
         }
+
+
+        if (time) {
+          // Validate input
+          if (typeof time === 'string') {
+            // Defaults
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+
+            timeParts = time.split(':');
+            switch (timeParts.length) {
+              case 3:
+                seconds = validSeconds(timeParts[2]);
+                // falls through
+              case 2:
+                minutes = validMinutes(timeParts[1]) * 60; // In seconds
+                // falls through
+              case 1:
+                hours = validHours(timeParts[0]) * 3600; // In seconds
+                break;
+              default:
+                throw new UserException('Attribute `time` unexpected format');
+            }
+          } else {
+            throw new UserException('Attribute `time` unexpected format');
+          }
+        } else {
+          // Use current local time
+          hours = validHours(clock.getHours()) * 3600; // In seconds
+          minutes = clock.getMinutes() * 60; // In seconds
+          seconds = clock.getSeconds();
+        }
+
+        // Degrees as time / scale ratio to 360 circle
+        setRotationForElement(Math.round((hours + minutes + seconds) / 43200 * 360), '.hour--frame');
+        setRotationForElement(Math.round((minutes + seconds) / 3600 * 360), '.minute--frame');
+        setRotationForElement(Math.round(seconds / 60 * 360), '.second--frame');
+
+        // Let the world now time has been set.
+        this.fire('bender-clock-time-changed', {'timeset': time});
       },
 
       is: 'bender-clock',
