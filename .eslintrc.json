@@ -1,0 +1,24 @@
+{
+  "extends": ["eslint:recommended", "google"],
+  "env": {
+    "browser": true
+  },
+  "plugins": [
+    "html"
+  ],
+  "rules": {
+    "no-var": "off",
+    "new-cap": ["error", { "capIsNewExceptions": ["Polymer"] }],
+    "max-len": [1, 140, 2, {
+      "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
+      "ignoreUrls": true
+    }]
+  },
+  "globals": {
+    "assert": true,
+    "fixture": true,
+    "Polymer": true,
+    "suite" : true,
+    "test" : true
+  }
+}

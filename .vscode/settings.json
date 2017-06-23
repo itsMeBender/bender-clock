@@ -1,0 +1,9 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "eslint.enable": true,
+    "eslint.run": "onType",
+    "eslint.validate":[
+        "javascript",
+        {"language": "html", "autoFix": true}
+    ]
+}

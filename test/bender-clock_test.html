@@ -20,14 +20,20 @@
 
     <script>
       suite('bender-clock', function() {
+        /* global
+          setup, expect, sinon
+        */
         var clock;
         var element;
         var hour;
+        var hourRotation;
         var minute;
+        var minuteRotation;
         var second;
+        var secondRotation;
 
-        setup(function () {
-          element = fixture("basic");
+        setup(function() {
+          element = fixture('basic');
 
           // Frame rotation is the starting rotation of given time.
           // These elements are under control of the JavaScript to handle the initial start time rotation.
@@ -36,7 +42,7 @@
           second = element.$$('.second--frame');
 
           // This is the full 360deg, hour, minute and second (hand) rotation.
-          // Animated by CSS "animation: rotate 43200s infinite linear".
+          // Animated by CSS 'animation: rotate 43200s infinite linear'.
           hourRotation = element.$$('.hour--full-rotation');
           minuteRotation = element.$$('.minute--full-rotation');
           secondRotation = element.$$('.second--full-rotation');
@@ -71,6 +77,7 @@
             expect(minute.style.transform).to.be.equal('rotateZ(93deg)');
             expect(second.style.transform).to.be.equal('rotateZ(180deg)');
 
+            clock.restore();
             done();
           }, 10);
 
@@ -79,46 +86,58 @@
           clock = sinon.useFakeTimers(new Date(2017, 2, 30, 9, 15, 30).getTime());
         });
 
+        // ///////////////////////////////////////////////////////////////////////
+        // Functions
+        // ///////////////////////////////////////////////////////////////////////
+
         // Expected input HH:MM:SS as in 23:59:59
         test('B02 - Function changeTime(time:String), time parameter', function() {
-          element.changeTime("3:45");   // Set TIME to 10 hours and 45 minutes
+          element.changeTime('3:45'); // Set TIME to 10 hours and 45 minutes
           expect(hour.style.transform).to.be.equal('rotateZ(113deg)');
           expect(minute.style.transform).to.be.equal('rotateZ(270deg)');
           expect(second.style.transform).to.be.equal('rotateZ(0deg)');
 
-          element.changeTime("22:30");   // Set TIME to 22 hours and 30 minutes
+          element.changeTime('22:30'); // Set TIME to 22 hours and 30 minutes
           expect(hour.style.transform).to.be.equal('rotateZ(315deg)');
           expect(minute.style.transform).to.be.equal('rotateZ(180deg)');
           expect(second.style.transform).to.be.equal('rotateZ(0deg)');
 
-          element.changeTime("0:30:30");   // Set TIME to 0 hours, 30 minutes and 30 seconds
+          element.changeTime('0:30:30'); // Set TIME to 0 hours, 30 minutes and 30 seconds
           expect(hour.style.transform).to.be.equal('rotateZ(15deg)');
           expect(minute.style.transform).to.be.equal('rotateZ(183deg)');
           expect(second.style.transform).to.be.equal('rotateZ(180deg)');
 
-          element.changeTime("15");   // Set TIME to 15hours
+          element.changeTime('15'); // Set TIME to 15hours
           expect(hour.style.transform).to.be.equal('rotateZ(90deg)');
           expect(minute.style.transform).to.be.equal('rotateZ(0deg)');
           expect(second.style.transform).to.be.equal('rotateZ(0deg)');
         });
 
         test('B03 - Changing time attribute', function() {
-          element.setAttribute("time", "3:45");   // Set TIME to 10 hours and 45 minutes
+          element.setAttribute('time', '3:45'); // Set TIME to 10 hours and 45 minutes
           expect(hour.style.transform).to.be.equal('rotateZ(113deg)');
           expect(minute.style.transform).to.be.equal('rotateZ(270deg)');
           expect(second.style.transform).to.be.equal('rotateZ(0deg)');
 
-          element.setAttribute("time", "22:30");   // Set TIME to 10 hours and 45 minutes
+          element.setAttribute('time', '22:30'); // Set TIME to 10 hours and 45 minutes
           expect(hour.style.transform).to.be.equal('rotateZ(315deg)');
           expect(minute.style.transform).to.be.equal('rotateZ(180deg)');
           expect(second.style.transform).to.be.equal('rotateZ(0deg)');
         });
 
         test('B04 - Parameter validation changeTime()', function() {
-          assert.throws(function () { element.changeTime("00:60:00"); }, "Attribute `time` unexpected format", "Error thrown on `00:60`");
-          assert.throws(function () { element.changeTime("24:00:00"); }, "Attribute `time` unexpected format", "Error thrown on `24:00`");
-          assert.throws(function () { element.changeTime("12345678"); }, "Attribute `time` unexpected format", "Error thrown on `12345678`");
-          assert.throws(function () { element.changeTime("HH:MM"); }, "Attribute `time` unexpected format", "Error thrown on `HH:MM`");
+          assert.throws(function() {
+            element.changeTime('00:60:00');
+          }, 'Attribute `time` unexpected format', 'Error thrown on `00:60`');
+          assert.throws(function() {
+            element.changeTime('24:00:00');
+          }, 'Attribute `time` unexpected format', 'Error thrown on `24:00`');
+          assert.throws(function() {
+            element.changeTime('12345678');
+          }, 'Attribute `time` unexpected format', 'Error thrown on `12345678`');
+          assert.throws(function() {
+            element.changeTime('HH:MM');
+          }, 'Attribute `time` unexpected format', 'Error thrown on `HH:MM`');
         });
       });
     </script>
