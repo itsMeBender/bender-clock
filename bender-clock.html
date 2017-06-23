@@ -1,10 +1,9 @@
 <!--
 `bender-clock` displays an analog clock, using local time by default.
 
-Example:
+Example, current time:
 
-    <bender-clock></bender-clock>  
-    <bender-clock time="12:34"></bender-clock>  
+<bender-clock></bender-clock>
 
 ### Styling
 
@@ -232,11 +231,11 @@ Custom property                   | Description                  | Default
          */
         function validHours(hours) {
           if (isNaN(hours)) {
-            throw new UserException('Attribute `time` unexpected format hours.');
+            throw new Error('Attribute `time` unexpected format hours.', 'bender-clock.html', 234);
           } else {
             hours = parseInt(hours, 10);
             if (hours < 0 || hours > 23) {
-              throw new UserException('Attribute `time` unexpected format hours.');
+              throw new RangeError('Attribute `time` unexpected format hours.', 'bender-clock.html', 238);
             }
           }
           // Convert to 12 hour clock.
@@ -250,11 +249,11 @@ Custom property                   | Description                  | Default
          */
         function validMinutes(minutes) {
           if (isNaN(minutes)) {
-            throw new UserException('Attribute `time` unexpected format minutes.');
+            throw new Error('Attribute `time` unexpected format minutes.', 'bender-clock.html', 252);
           } else {
             minutes = parseInt(minutes, 10);
             if (minutes < 0 || minutes > 59) {
-              throw new UserException('Attribute `time` unexpected format minutes.');
+              throw new RangeError('Attribute `time` unexpected format minutes.', 'bender-clock.html', 256);
             }
           }
           return minutes;
@@ -267,11 +266,11 @@ Custom property                   | Description                  | Default
          */
         function validSeconds(seconds) {
           if (isNaN(seconds)) {
-            throw new UserException('Attribute `time` unexpected format seconds.');
+            throw new Error('Attribute `time` unexpected format seconds.');
           } else {
             seconds = parseInt(seconds, 10);
             if (seconds < 0 || seconds > 59) {
-              throw new UserException('Attribute `time` unexpected format seconds.');
+              throw new RangeError('Attribute `time` unexpected format seconds.');
             }
           }
           return seconds;

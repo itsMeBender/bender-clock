@@ -127,11 +127,26 @@
 
         test('B04 - Parameter validation changeTime()', function() {
           assert.throws(function() {
+            element.changeTime('00:00:60');
+          }, 'Attribute `time` unexpected format seconds.', 'Error thrown on `00:60`');
+          assert.throws(function() {
+            element.changeTime('00:00:G0');
+          }, 'Attribute `time` unexpected format seconds.', 'Error thrown on `00:G0`'); // 'G' in time
+
+          assert.throws(function() {
             element.changeTime('00:60:00');
-          }, 'Attribute `time` unexpected format', 'Error thrown on `00:60`');
+          }, 'Attribute `time` unexpected format minutes.', 'Error thrown on `00:60`');
+          assert.throws(function() {
+            element.changeTime('00:G0:00');
+          }, 'Attribute `time` unexpected format minutes.', 'Error thrown on `00:G0`'); // 'G' in time
+
           assert.throws(function() {
             element.changeTime('24:00:00');
-          }, 'Attribute `time` unexpected format', 'Error thrown on `24:00`');
+          }, 'Attribute `time` unexpected format hours.', 'Error thrown on `24:00`'); // 23:59:59 to 00:00:00
+          assert.throws(function() {
+            element.changeTime('2A:00:00');
+          }, 'Attribute `time` unexpected format hours.', 'Error thrown on `2A:00`'); // 'A' in time
+
           assert.throws(function() {
             element.changeTime('12345678');
           }, 'Attribute `time` unexpected format', 'Error thrown on `12345678`');
