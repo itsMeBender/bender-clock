@@ -4,8 +4,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Demo bleed record",
-            "url": "http://localhost:8081/components/pv-bleeding-form/#pv-bleeding-record",
+            "name": "Demo dual clock",
+            "url": "http://localhost:8081/components/bender-clock/test/bender-dual-clock_test.html",
             "webRoot": "${workspaceRoot}"
         },
         {
