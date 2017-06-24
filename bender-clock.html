@@ -168,7 +168,7 @@ Custom property                   | Description                  | Default
       */
 
       // Change displayed time with format H, H:M, H:M:S as in '1:23:45'
-      changeTime: function(time) {
+      changeTime: function(time, oldTime) {
         var clock = new Date();
         var hours;
         var minutes;
@@ -194,11 +194,11 @@ Custom property                   | Description                  | Default
          */
         function validHours(hours) {
           if (isNaN(hours)) {
-            throw new Error('Attribute `time` unexpected format hours.', 'bender-clock.html', 234);
+            throw new Error('Attribute `time` unexpected format hours.', 'bender-clock.html');
           } else {
             hours = parseInt(hours, 10);
             if (hours < 0 || hours > 23) {
-              throw new RangeError('Attribute `time` unexpected format hours.', 'bender-clock.html', 238);
+              throw new RangeError('Attribute `time` unexpected format hours.', 'bender-clock.html');
             }
           }
           // Convert to 12 hour clock.
@@ -212,11 +212,11 @@ Custom property                   | Description                  | Default
          */
         function validMinutes(minutes) {
           if (isNaN(minutes)) {
-            throw new Error('Attribute `time` unexpected format minutes.', 'bender-clock.html', 252);
+            throw new Error('Attribute `time` unexpected format minutes.', 'bender-clock.html');
           } else {
             minutes = parseInt(minutes, 10);
             if (minutes < 0 || minutes > 59) {
-              throw new RangeError('Attribute `time` unexpected format minutes.', 'bender-clock.html', 256);
+              throw new RangeError('Attribute `time` unexpected format minutes.', 'bender-clock.html');
             }
           }
           return minutes;
@@ -229,25 +229,19 @@ Custom property                   | Description                  | Default
          */
         function validSeconds(seconds) {
           if (isNaN(seconds)) {
-            throw new Error('Attribute `time` unexpected format seconds.');
+            throw new Error('Attribute `time` unexpected format seconds.', 'bender-clock.html');
           } else {
             seconds = parseInt(seconds, 10);
             if (seconds < 0 || seconds > 59) {
-              throw new RangeError('Attribute `time` unexpected format seconds.');
+              throw new RangeError('Attribute `time` unexpected format seconds.', 'bender-clock.html');
             }
           }
           return seconds;
         }
 
-        /**
-         * Throws an error, because of unexpected data input
-         * @param {String} message to show in console
-         */
-        function UserException(message) {
-          this.message = message;
-          this.name = 'BenderClockUserException';
-        }
-
+        //
+        // Set the TIME
+        //
 
         if (time) {
           // Validate input
@@ -269,14 +263,15 @@ Custom property                   | Description                  | Default
                 hours = validHours(timeParts[0]) * 3600; // In seconds
                 break;
               default:
-                throw new UserException('Attribute `time` unexpected format');
+                throw new Error('Attribute `time` unexpected format', 'bender-clock.html');
             }
           } else {
-            throw new UserException('Attribute `time` unexpected format');
+            throw new Error('Attribute `time` unexpected format', 'bender-clock.html');
           }
         } else {
           // Use current local time
-          hours = validHours(clock.getHours()) * 3600; // In seconds
+          hours = clock.getHours();
+          hours = (hours > 12 ? hours - 12 : hours) * 3600;  // In seconds, for 12 HOURS notation.
           minutes = clock.getMinutes() * 60; // In seconds
           seconds = clock.getSeconds();
         }
@@ -286,17 +281,18 @@ Custom property                   | Description                  | Default
         setRotationForElement(Math.round((minutes + seconds) / 3600 * 360), '.minute--frame');
         setRotationForElement(Math.round(seconds / 60 * 360), '.second--frame');
 
-        // Let the world now time has been set.
-        this.fire('bender-clock-time-changed', {'timeset': time});
+        this.time = time;
       },
 
       is: 'bender-clock',
 
       properties: {
         time: {
+          notify: true, // Send event 'time-changed', https://www.polymer-project.org/1.0/docs/devguide/properties
+          observer: 'changeTime',
+          reflectToAttribute: true, // https://www.polymer-project.org/1.0/docs/devguide/properties#attribute-reflection
           type: String,
           value: '',
-          observer: 'changeTime',
         },
       },
 
@@ -332,7 +328,7 @@ Custom property                   | Description                  | Default
         if (typeof document.addEventListener === 'undefined' || typeof document[hidden] === 'undefined') {
           throw new {
             'message': 'This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.',
-            'name': 'BenderClockUserException',
+            'name': 'Error',
           };
         } else {
           // Handle page visibility change
