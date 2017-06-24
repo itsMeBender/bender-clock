@@ -271,7 +271,7 @@ Custom property                   | Description                  | Default
         } else {
           // Use current local time
           hours = clock.getHours();
-          hours = (hours > 12 ? hours - 12 : hours) * 3600;  // In seconds, for 12 HOURS notation.
+          hours = (hours > 12 ? hours - 12 : hours) * 3600; // In seconds, for 12 HOURS notation.
           minutes = clock.getMinutes() * 60; // In seconds
           seconds = clock.getSeconds();
         }
@@ -316,11 +316,12 @@ Custom property                   | Description                  | Default
 
         /**
          * If the page is hidden, the CSS animation doesn't reflect the correct time.
-         * if the page is shown, synchronize time
+         * Because animation is stopped.
+         * If the page is shown again, synchronize time.
          */
         function handleVisibilityChange() {
           if (!document[hidden]) {
-            // this.changeTime();
+            this.changeTime();
           }
         }
 
