@@ -28,15 +28,31 @@
         background-repeat: no-repeat;       
         width: 10em;
       }
+      .showWatch {
+        border-radius: 2em;
+        background-image: url("clock-background-basic.png");
+        background-size: 100%;
+        background-repeat: no-repeat;       
+        width: 10em;
+      }
+      .showWatch bender-clock {
+        --bender-clock-background-color: transparent;        
+        --bender-clock-color-hour: #444444;
+        --bender-clock-color-minute: #333333;
+        --bender-clock-color-second: #BB3355;
+        --bender-clock-border-color: transparent;
+      }
       .showMe bender-clock {
         --bender-clock-border-color: #444444;
         --bender-clock-background-color: transparent;
+        --bender-clock-color-second: transparent;
       }
     </style>
   </head>
   <body>
     <div class="vertical-section-container centered">
-      <h3>Current time</h3>
+      <h3>Basic behavior (current time)</h3>
+      <p>No attribute `<em>time</em>` provided. Default `magic-mirror` styling.</p>
       <demo-snippet>
         <template>
           <bender-clock></bender-clock>
@@ -45,14 +61,18 @@
     </div>
     <div class="vertical-section-container centered">
       <h3>Given time 21:41:13</h3>
+      <p>Use attribute `<em>time</em>` to show a different time. Configure background with CSS. See example in media folder.</p>
       <demo-snippet>
         <template>
-          <bender-clock time="21:41:13"></bender-clock>
+          <div class="showWatch">
+            <bender-clock time="21:41:13"></bender-clock>
+          </div>
         </template>
       </demo-snippet>
     </div>
     <div class="vertical-section-container centered">
-      <h3>Show Me</h3>
+      <h3>Show Me two hands</h3>
+      <p>Hi, it's me Bender. Seconds hand is transparent (off).</p>
       <demo-snippet>
         <template>
           <div class="showMe">
@@ -63,6 +83,7 @@
     </div>
     <div class="vertical-section-container centered">
       <h3>Given time at 1 hour</h3>
+      <p>An example of coloring the clock hands.</p>
       <demo-snippet>
         <template>
           <bender-clock class="setColors" time="1"></bender-clock>
