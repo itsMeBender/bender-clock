@@ -1,5 +1,12 @@
 {
+  "fragments": [
+    "*.js"
+  ],
+  "npm": true,
+  "moduleResolution": "node",
   "lint": {
-    "rules": ["polymer-1"]
+    "rules": [
+      "polymer-3"
+    ]
   }
 }

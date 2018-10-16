@@ -1,21 +1,30 @@
 {
   "name": "bender-clock",
-  "version": "1.0.4",
   "description": "Display an analog clock using CSS animation.",
-  "main": "index.html",
-  "directories": {
-    "test": "test"
+  "main": "bender-clock.js",
+  "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ItsMeBender/bender-clock.git"
   },
+  "keywords": [
+    "clock",
+    "css3",
+    "polymer"
+  ],
+  "author": "itsMeBender",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/ItsMeBender/bender-clock/issues"
+  },
+  "homepage": "https://gitlab.com/ItsMeBender/bender-clock#readme",
   "dependencies": {
+    "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.0.0",
-    "eslint-config-google": "^0.8.0",
-    "eslint-plugin-html": "^3.0.0"
-  },
-  "scripts": {
-    "test": "test/index.html"
-  },
-  "author": "itsMeBender",
-  "license": "MIT"
+    "@polymer/iron-component-page": "^4.0.1",
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "wct-browser-legacy": "^1.0.0"
+  }
 }

@@ -1,6 +1,6 @@
 # Contributing
 
-Hi, it's nice if you want to contribute to ththis project.  
+Hi, it's nice if you want to contribute to this project.  
 
 Currently the impact of the project is small. I have one goal;
 

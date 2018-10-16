@@ -6,48 +6,53 @@
 
     <title>bender-clock demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../bender-clock.html">
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+    </script>
 
-    <style is="custom-style" include="demo-pages-shared-styles">
-      .setColors {
-        --bender-clock-border-color: #449988;
-        --bender-clock-border-width: 2px;
-        --bender-clock-background-color: #59BBC9;
-        --bender-clock-color-hour: #444444;
-        --bender-clock-color-minute: #EEFF66;
-        --bender-clock-color-second: #FF3311;
-      }
-      .showMe {
-        border-radius: 5em;
-        background-image: url("itsmebender.png");
-        background-size: 100%;
-        background-repeat: no-repeat;       
-        width: 10em;
-      }
-      .showWatch {
-        border-radius: 2em;
-        background-image: url("clock-background-basic.png");
-        background-size: 100%;
-        background-repeat: no-repeat;       
-        width: 10em;
-      }
-      .showWatch bender-clock {
-        --bender-clock-background-color: transparent;        
-        --bender-clock-color-hour: #444444;
-        --bender-clock-color-minute: #333333;
-        --bender-clock-color-second: #BB3355;
-        --bender-clock-border-color: transparent;
-      }
-      .showMe bender-clock {
-        --bender-clock-border-color: #444444;
-        --bender-clock-background-color: transparent;
-        --bender-clock-color-second: transparent;
-      }
-    </style>
+    <script type="module" src="../bender-clock.js"></script>
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        .setColors {
+          --bender-clock-border-color: #449988;
+          --bender-clock-border-width: 2px;
+          --bender-clock-background-color: #59BBC9;
+          --bender-clock-color-hour: #444444;
+          --bender-clock-color-minute: #EEFF66;
+          --bender-clock-color-second: #FF3311;
+        }
+        .showMe {
+          border-radius: 5em;
+          background-image: url("itsmebender.png");
+          background-size: 100%;
+          background-repeat: no-repeat;       
+          width: 10em;
+        }
+        .showWatch {
+          border-radius: 2em;
+          background-image: url("clock-background-basic.png");
+          background-size: 100%;
+          background-repeat: no-repeat;       
+          width: 10em;
+        }
+        .showWatch bender-clock {
+          --bender-clock-background-color: transparent;        
+          --bender-clock-color-hour: #444444;
+          --bender-clock-color-minute: #333333;
+          --bender-clock-color-second: #BB3355;
+          --bender-clock-border-color: transparent;
+        }
+        .showMe bender-clock {
+          --bender-clock-border-color: #444444;
+          --bender-clock-background-color: transparent;
+          --bender-clock-color-second: transparent;
+        }
+      </style>
+    </custom-style>
   </head>
   <body>
     <div class="vertical-section-container centered">
