@@ -1,0 +1,7 @@
+.vscode/
+media/
+
+.eslintrc.json
+analysis.json
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
